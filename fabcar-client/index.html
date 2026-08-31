@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./styles.css"
+    >
+
+    <title>
+        Enterprise Identity & Access Registry
+    </title>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- ================================= -->
+    <!-- HEADER -->
+    <!-- ================================= -->
+
+    <header>
+
+        <h1>
+            Enterprise Identity & Access Registry
+        </h1>
+
+        <p>
+            Decentralized HR & Security Portal
+        </p>
+
+    </header>
+
+
+    <!-- ================================= -->
+    <!-- SEARCH / FILTER -->
+    <!-- ================================= -->
+
+    <section class="card">
+
+        <h2>
+            Search & Filter Employees
+        </h2>
+
+
+        <div class="search-grid">
+
+
+            <div>
+
+                <label>
+                    Employee ID
+                </label>
+
+                <input
+                    id="search-id"
+                    type="text"
+                    placeholder="e.g. EMP001"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Department
+                </label>
+
+                <select id="search-department">
+
+                    <option value="">
+                        All Departments
+                    </option>
+
+                    <option value="HR">
+                        HR
+                    </option>
+
+                    <option value="IT">
+                        IT
+                    </option>
+
+                    <option value="Finance">
+                        Finance
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Clearance Status
+                </label>
+
+                <select id="search-status">
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Suspended">
+                        Suspended
+                    </option>
+
+                    <option value="Revoked">
+                        Revoked
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button onclick="searchEmployees()">
+                Search / Filter
+            </button>
+
+            <button onclick="getAllEmployees()">
+                View All
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- EMPLOYEE TABLE -->
+    <!-- ================================= -->
+
+    <section class="card">
+
+        <h2>
+            Registered Employee Identities
+        </h2>
+
+        <div
+            id="employee-table"
+            class="table-container"
+        >
+
+            <p>
+                Click "View All" to load employees.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- CREATE EMPLOYEE -->
+    <!-- ================================= -->
+
+    <section class="card">
+
+        <h2>
+            Create Employee Identity
+        </h2>
+
+
+        <form id="createForm">
+
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>
+                        Employee ID
+                    </label>
+
+                    <input
+                        name="employeeId"
+                        placeholder="EMP006"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Employee Name
+                    </label>
+
+                    <input
+                        name="employeeName"
+                        placeholder="Employee name"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Department
+                    </label>
+
+                    <select
+                        name="department"
+                        required
+                    >
+
+                        <option value="">
+                            Select Department
+                        </option>
+
+                        <option value="HR">
+                            HR
+                        </option>
+
+                        <option value="IT">
+                            IT
+                        </option>
+
+                        <option value="Finance">
+                            Finance
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Role
+                    </label>
+
+                    <select
+                        name="role"
+                        required
+                    >
+
+                        <option value="">
+                            Select Role
+                        </option>
+
+                        <option value="Developer">
+                            Developer
+                        </option>
+
+                        <option value="System Admin">
+                            System Admin
+                        </option>
+
+                        <option value="Manager">
+                            Manager
+                        </option>
+
+                        <option value="Accountant">
+                            Accountant
+                        </option>
+
+                        <option value="HR Executive">
+                            HR Executive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Clearance Status
+                    </label>
+
+                    <select
+                        name="clearanceStatus"
+                        required
+                    >
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Suspended">
+                            Suspended
+                        </option>
+
+                        <option value="Revoked">
+                            Revoked
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button type="submit">
+                Create Identity
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- UPDATE CLEARANCE -->
+    <!-- ================================= -->
+
+    <section class="card">
+
+        <h2>
+            Update Clearance Status
+        </h2>
+
+
+        <form id="updateForm">
+
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>
+                        Employee ID
+                    </label>
+
+                    <input
+                        name="employeeId"
+                        placeholder="EMP001"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        New Clearance Status
+                    </label>
+
+                    <select
+                        name="clearanceStatus"
+                        required
+                    >
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Suspended">
+                            Suspended
+                        </option>
+
+                        <option value="Revoked">
+                            Revoked
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button type="submit">
+                Update Clearance
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+
+// ============================================
+// API BASE URL
+// ============================================
+
+const API =
+    'http://localhost:3000';
+
+
+// ============================================
+// CREATE EMPLOYEE
+// ============================================
+
+const createForm =
+    document.getElementById('createForm');
+
+
+createForm.addEventListener(
+    'submit',
+    async function(event) {
+
+        event.preventDefault();
+
+        const formData =
+            new FormData(createForm);
+
+        const body =
+            new URLSearchParams(formData);
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API}/create-employee`,
+                    {
+                        method: 'POST',
+                        body: body
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error || 'Failed to create employee'
+                );
+            }
+
+
+            alert(data.message);
+
+            createForm.reset();
+
+            getAllEmployees();
+
+
+        } catch (error) {
+
+            alert(error.message);
+
+            console.error(error);
+        }
+
+    }
+);
+
+
+// ============================================
+// UPDATE CLEARANCE STATUS
+// ============================================
+
+const updateForm =
+    document.getElementById('updateForm');
+
+
+updateForm.addEventListener(
+    'submit',
+    async function(event) {
+
+        event.preventDefault();
+
+        const formData =
+            new FormData(updateForm);
+
+        const body =
+            new URLSearchParams(formData);
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API}/update-clearance`,
+                    {
+                        method: 'POST',
+                        body: body
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error || 'Failed to update clearance'
+                );
+            }
+
+
+            alert(data.message);
+
+            updateForm.reset();
+
+            getAllEmployees();
+
+
+        } catch (error) {
+
+            alert(error.message);
+
+            console.error(error);
+        }
+
+    }
+);
+
+
+// ============================================
+// VIEW ALL EMPLOYEES
+// ============================================
+
+async function getAllEmployees() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/get-employees`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error || 'Failed to load employees'
+            );
+        }
+
+
+        displayEmployees(data);
+
+
+    } catch (error) {
+
+        alert(error.message);
+
+        console.error(error);
+    }
+}
+
+
+// ============================================
+// SEARCH / FILTER
+// ============================================
+
+async function searchEmployees() {
+
+    const employeeId =
+        document.getElementById('search-id').value.trim();
+
+    const department =
+        document.getElementById('search-department').value;
+
+    const status =
+        document.getElementById('search-status').value;
+
+
+    const params =
+        new URLSearchParams();
+
+
+    if (employeeId) {
+        params.append('key', employeeId);
+    }
+
+    if (department) {
+        params.append('department', department);
+    }
+
+    if (status) {
+        params.append('status', status);
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/get-employees?${params.toString()}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error || 'Search failed'
+            );
+        }
+
+
+        displayEmployees(data);
+
+
+    } catch (error) {
+
+        alert(error.message);
+
+        console.error(error);
+    }
+}
+
+
+// ============================================
+// DISPLAY EMPLOYEES
+// ============================================
+
+function displayEmployees(employees) {
+
+    const container =
+        document.getElementById('employee-table');
+
+
+    if (
+        !employees ||
+        employees.length === 0
+    ) {
+
+        container.innerHTML =
+            '<p>No employee identities found.</p>';
+
+        return;
+    }
+
+
+    let html = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Name</th>
+
+                    <th>Department</th>
+
+                    <th>Role</th>
+
+                    <th>Clearance Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+    `;
+
+
+    employees.forEach(item => {
+
+        const employee =
+            item.Record;
+
+
+        html += `
+
+            <tr>
+
+                <td>
+                    ${employee.employee_id}
+                </td>
+
+                <td>
+                    ${employee.employee_name}
+                </td>
+
+                <td>
+                    ${employee.department}
+                </td>
+
+                <td>
+                    ${employee.role}
+                </td>
+
+                <td>
+                    <span class="status">
+                        ${employee.clearance_status}
+                    </span>
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+    `;
+
+
+    container.innerHTML = html;
+}
+
+
+// ============================================
+// LOAD EMPLOYEES WHEN PAGE OPENS
+// ============================================
+
+getAllEmployees();
+
+
+</script>
+
+</body>
+
+</html>
